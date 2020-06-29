@@ -1,0 +1,3 @@
+rootProject.name='MpAndroidChart Wrapper Sample'
+include ':app'
+include ':mpandroidchartwrapper'
