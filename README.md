@@ -1,5 +1,5 @@
 # MpAndroidChart Wrapper
-MpAndroidChart Wrapper will help you easy to display data into visualization of prepared data, Chart Wrapper classes are 
+MpAndroidChart Wrapper will help you easy to display data into visualization of prepared data, Supporting Wrapper Charts are 
 Single bar, Group bar, Single stacked bar, Group stacked bar, Single line, Group line, Pie chart.  
 
 ## Example Screenshots
@@ -152,14 +152,14 @@ dependencies {
             chartTitle: String
         ): Retrun BarChart`
         
-*`  barChart(
+ *`  barChart(
             barChart: BarChart,
             xAxisVal: Array<String>,
             yAxisVal: LinkedHashMap<String, FloatArray>,
             chatTitle: String
          ): Retrun BarChart`
         
-*`  multiBarChart(
+ *`  multiBarChart(
             multiBarChart: BarChart,
             xAxisVal: Array<String>,
             yAxisVal: LinkedHashMap<String, FloatArray>,
