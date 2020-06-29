@@ -151,15 +151,14 @@ dependencies {
             YAxisValuesLinkedHashMap: LinkedHashMap<String, LinkedHashMap<String, FloatArray>>,
             chartTitle: String
         ): Retrun BarChart`
-        
- *`  barChart(
+ * ` barChart(
             barChart: BarChart,
             xAxisVal: Array<String>,
             yAxisVal: LinkedHashMap<String, FloatArray>,
             chatTitle: String
          ): Retrun BarChart`
         
- *`  multiBarChart(
+ * ` multiBarChart(
             multiBarChart: BarChart,
             xAxisVal: Array<String>,
             yAxisVal: LinkedHashMap<String, FloatArray>,
