@@ -11,27 +11,26 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.github.mikephil.charting.utils.ColorTemplate
 import java.util.*
 import kotlin.collections.HashMap
 
 
 class BarChartWrapper() {
-    private val colors = ArrayList<Int>()
+    private var colors = ArrayList<Int>()
 
     fun barStackChart(
         barChartView: BarChart,
         xAxisValues: Array<String>,
         YAxisValuesLinkedHashMap: LinkedHashMap<String, LinkedHashMap<String, FloatArray>>,
+        dataSetColors: ArrayList<Int>,
         chartTitle: String
-    ) {
-
-        addColorTemplate()
-        var (barData,labelHm )= createStackBarChartData(YAxisValuesLinkedHashMap)
+    ): BarChart {
+        addColorTemplate(dataSetColors)
+        var (barData, labelHm) = createStackBarChartData(YAxisValuesLinkedHashMap)
         configureMultiBarChartAppearance(barChartView, chartTitle)
         // set bar label
         val legend = legend(barChartView)
-        legendEntry(legend,labelHm)
+        legendEntry(legend, labelHm)
 
         xAxisConfiguration(barChartView, xAxisValues)
 
@@ -49,11 +48,8 @@ class BarChartWrapper() {
         val groupEvaluatedSpace = 1f - (barSpace + barWidth) * groupSize
         barChartView.groupBars(0f, groupEvaluatedSpace, barSpace)
 
-//        barChartView.groupBars(0f, groupSpace, barSpace)
-
         barChartView.data = barData
-        barChartView.invalidate()
-
+        return barChartView
     }
 
     private fun legendEntry(
@@ -206,16 +202,17 @@ class BarChartWrapper() {
                 ColorTemplate.MATERIAL_COLORS[1]
             )
             barDataSet2.setDrawIcons(false)*/
-        return Pair(BarData(dataSets),legendLabelHm)
+        return Pair(BarData(dataSets), legendLabelHm)
     }
 
     fun barChart(
         barChart: BarChart,
         xAxisVal: Array<String>,
         yAxisVal: LinkedHashMap<String, FloatArray>,
+        dataSetColors: ArrayList<Int>,
         chatTitle: String
     ): BarChart {
-        addColorTemplate()
+        addColorTemplate(dataSetColors)
         barChart.setPinchZoom(true)
         barChart.description.text = chatTitle
 
@@ -237,6 +234,8 @@ class BarChartWrapper() {
         xAxis.isGranularityEnabled = true
         xAxis.textSize = 9f
         xAxis.labelCount = 12
+        if (xAxisVal.size > 12)
+            xAxis.labelCount = xAxisVal.size / 3
         xAxis.mAxisMaximum = 12f
         xAxis.position = XAxis.XAxisPosition.TOP
         xAxis.valueFormatter = IndexAxisValueFormatter(xAxisVal)
@@ -246,10 +245,11 @@ class BarChartWrapper() {
         multiBarChart: BarChart,
         xAxisVal: Array<String>,
         yAxisVal: LinkedHashMap<String, FloatArray>,
+        dataSetColors: ArrayList<Int>,
         chatTitle: String
     ): BarChart {
 
-        addColorTemplate()
+        addColorTemplate(dataSetColors)
         val data = createChartData(yAxisVal)
         val multiBarChartConfigured = configureMultiBarChartAppearance(multiBarChart, chatTitle)
 
@@ -260,12 +260,9 @@ class BarChartWrapper() {
         )
     }
 
-    private fun addColorTemplate() {
-        if (colors.size == 0) {
-            for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-            for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
+    private fun addColorTemplate(colors: ArrayList<Int>) {
+        if (this.colors.size == 0) {
+            this.colors=colors
         }
     }
 

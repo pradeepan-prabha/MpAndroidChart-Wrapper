@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var dataSetColors = ArrayList<Int>()
+        dataSetColors = ArrayList<Int>()
         dataSetColors.add(rgb("#C0392B"))
         dataSetColors.add(rgb("#884EA0"))
         dataSetColors.add(rgb("#2471A3"))

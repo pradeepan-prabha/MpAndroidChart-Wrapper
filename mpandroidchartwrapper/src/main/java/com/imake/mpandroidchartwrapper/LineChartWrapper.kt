@@ -2,17 +2,14 @@ package com.imake.mpandroidchartwrapper
 
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import java.util.*
@@ -26,15 +23,11 @@ class LineChartWrapper() {
         mChart: LineChart,
         xAxisVal: Array<String>,
         yValues: LinkedHashMap<String, FloatArray>,
+        colors: ArrayList<Int>,
         graphTitle: String?
     ): LineChart? {
         var mChart = mChart
-        run {
-            for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-            for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
-        }
+        this.colors =colors
         run {
             mChart.description.isEnabled = true
             mChart.description.text = graphTitle
@@ -112,6 +105,7 @@ class LineChartWrapper() {
         }
         return LineData(dataSets)
     }
+
     private fun xAxisConfiguration(
         chart: LineChart,
         xAxisValues: Array<String>
@@ -123,6 +117,8 @@ class LineChartWrapper() {
         xAxis.isGranularityEnabled = true
         xAxis.textSize = 9f
         xAxis.labelCount = 12
+        if (xAxisValues.size > 12)
+            xAxis.labelCount = xAxisValues.size / 3
         xAxis.mAxisMaximum = 12f
     }
 
