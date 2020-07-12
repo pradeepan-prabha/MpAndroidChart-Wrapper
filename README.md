@@ -46,6 +46,20 @@ dependencies {
         floatArrayOf(2f, 1f, 4f, 5f, 7f, 9f, 4f, 5f, 7f, 6f, 7f, 5f)
      var yAxisValSize5 =
         floatArrayOf(10f, 2f, 4f, 5f, 7f, 9f, 4f, 2f, 7f, 12f, 14f, 1f)
+     var dataSetColors = ArrayList<Int>()
+        dataSetColors.add(rgb("#C0392B"))
+        dataSetColors.add(rgb("#884EA0"))
+        dataSetColors.add(rgb("#2471A3"))
+        dataSetColors.add(rgb("#1ABC9C"))
+        dataSetColors.add(rgb("#27AE60"))
+        dataSetColors.add(rgb("#F1C40F"))
+        dataSetColors.add(rgb("#F39C12"))
+        dataSetColors.add(rgb("#E67E22"))
+        dataSetColors.add(rgb("#D35400"))
+        dataSetColors.add(rgb("#2E4053"))
+        dataSetColors.add(rgb("#145A32"))
+        dataSetColors.add(rgb("#0B5345"))
+
 ```
 
 ## Implementation MpAndroidChart Wrapper classes
@@ -62,7 +76,7 @@ dependencies {
         linkedHashMap[yAxisSeriesName + 2] = yAxisVal2 //String, float[]
         linkedHashMap[yAxisSeriesName + 3] = yAxisVal3 //String, float[]
 
-        val mulLineChart = mulLine.multiLineChart(mulLineChart, xAxisVal, linkedHashMap, "")
+        val mulLineChart = mulLine.multiLineChart(mulLineChart, xAxisVal, linkedHashMap, dataSetColors, "")
         mulLineChart!!.invalidate()
  ```
 
@@ -74,7 +88,7 @@ dependencies {
         val linkedHashMap = LinkedHashMap<String, FloatArray>()
         linkedHashMap[yAxisValName + 1] = yAxisVal //String, float[]
 
-        val singleBarChart = BarChartWrapper().barChart(barChart, xAxisVal, linkedHashMap, "")
+        val singleBarChart = BarChartWrapper().barChart(barChart, xAxisVal, linkedHashMap, dataSetColors, "")
         singleBarChart.invalidate()
  ```
 
@@ -88,7 +102,7 @@ dependencies {
         linkedHashMap[yAxisValName + 2] = yAxisVal2 //String, float[]
         linkedHashMap[yAxisValName + 3] = yAxisVal3 //String, float[]
 
-        val multiBarChart = BarChartWrapper().multiBarChart(multiBarChart, xAxisVal, linkedHashMap, "")
+        val multiBarChart = BarChartWrapper().multiBarChart(multiBarChart, xAxisVal, linkedHashMap, dataSetColors, "")
         multiBarChart.invalidate()
  ```
 
@@ -119,7 +133,7 @@ dependencies {
         hashMap3[yAxisValName + 3] = yAxisValSize1 //String, float[]
         linkedHashMap["Category3"] = hashMap3
 
-        val barStackChart=BarChartWrapper().barStackChart(barChartView1, xAxisVal, linkedHashMap, "")
+        val barStackChart=BarChartWrapper().barStackChart(barChartView1, xAxisVal, linkedHashMap, dataSetColors,"")
         barStackChart.invalidate()
  ```
 
@@ -134,7 +148,7 @@ dependencies {
  
          val outSideSlice = true //Y axis value highlighted in OutSideSlice
  
-         val pieChart = PieWrapper().pieChart(pieChart, xAxisVal, yAxisVal, "Month", 
+         val pieChart = PieWrapper().pieChart(pieChart, xAxisVal, yAxisVal, dataSetColors, "Month", 
                                   yAxisValFormat, "", outSideSlice)
          pieChart!!.invalidate()
  ```
@@ -148,13 +162,16 @@ dependencies {
  * ` barStackChart(
             barChartView: BarChart,
             xAxisValues: Array<String>,
-            YAxisValuesLinkedHashMap: LinkedHashMap<String, LinkedHashMap<String, FloatArray>>,
+            YAxisValuesLinkedHashMap: LinkedHashMap<String, 
+            LinkedHashMap<String, FloatArray>>,
+            dataSetColors: ArrayList<Int>,
             chartTitle: String
         ): Retrun BarChart`
  * ` barChart(
             barChart: BarChart,
             xAxisVal: Array<String>,
             yAxisVal: LinkedHashMap<String, FloatArray>,
+            dataSetColors: ArrayList<Int>,
             chatTitle: String
          ): Retrun BarChart`
         
@@ -162,6 +179,7 @@ dependencies {
             multiBarChart: BarChart,
             xAxisVal: Array<String>,
             yAxisVal: LinkedHashMap<String, FloatArray>,
+            dataSetColors: ArrayList<Int>,
             chatTitle: String
         ): Retrun BarChart`
         
@@ -174,6 +192,7 @@ dependencies {
              mChart: LineChart,
              xAxisVal: Array<String>,
              yValues: LinkedHashMap<String, FloatArray>,
+             dataSetColors: ArrayList<Int>,
              graphTitle: String?
          ): Retrun LineChart`
          
@@ -188,6 +207,7 @@ dependencies {
              yAxisVal: FloatArray,
              yAxisName: String,
              yAxisValFormat: String?,
+             dataSetColors: ArrayList<Int>,
              graphTitle: String?,
              outSideSlice: Boolean?
          ): Retrun PieChart`

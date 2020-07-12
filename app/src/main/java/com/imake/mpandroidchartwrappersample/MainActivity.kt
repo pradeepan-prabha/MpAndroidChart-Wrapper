@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.utils.ColorTemplate.rgb
 import com.imake.mpandroidchartwrappersample.util.BarChartWrapper
 import com.imake.mpandroidchartwrappersample.util.LineChartWrapper
 import com.imake.mpandroidchartwrappersample.util.PieWrapper
@@ -13,6 +14,30 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var dataSetColors: ArrayList<Int>
+    private var yAxisValNew =
+        floatArrayOf(
+            8.5f, 5.4f, 5.1f, 7.6f, 6.7f, 8.9f, 4.8f, 12.1f, 3.5f, 1.5f,
+            5.4f, 4f, 8f, 4.3f, 5.1f, 4f, 8f, 4.3f, 7.6f, 6.7f, 8.9f, 4.8f, 12.1f, 3.5f, 7.6f,
+            6.7f, 8.9f, 4.8f, 12.1f, 3.5f
+        )
+    private var yAxisValNew2 =
+        floatArrayOf(
+            12.5f, 5.4f, 12.1f, 3.5f, 7.6f, 4f, 8f, 4.3f, 5.1f, 7.6f, 6.7f, 8.9f, 4.8f, 12.1f, 3.5f,
+            6.7f, 8.9f, 4.8f, 5.1f, 7.6f, 6.7f, 8.9f, 4.8f, 12.1f, 3.5f, 1.5f,
+            5.4f, 4f, 8f, 4.3f
+        )
+    private var yAxisValNew3 =
+        floatArrayOf(
+            1.5f, 5.4f, 4f, 8f, 4.3f, 5.1f, 7.6f, 6.7f, 8.9f, 4.8f, 8f, 4.3f, 5.1f, 7.6f,
+            6.7f, 8.9f, 4.8f, 12.1f, 3.5f, 6.7f, 8.9f, 4.8f, 12.1f, 12.1f, 3.5f, 1.5f,
+            5.4f, 4f, 3.5f, 7.6f
+        )
+    private var xAxisValNew = arrayOf(
+        "01/02", "02/02", "03/02", "04/02", "05/02", "06/02", "07/02", "08/02", "09/02", "10/02"
+        , "11/02", "12/02", "13/02", "14/02", "15/02", "16/02", "17/02", "18/02", "19/02", "20/02",
+        "21/02", "22/02", "23/02", "24/02", "25/02", "26/02", "27/02", "28/02", "29/02", "30/02"
+    )
     var xAxisVal = arrayOf(
         "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     )
@@ -39,8 +64,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var dataSetColors = ArrayList<Int>()
+        dataSetColors.add(rgb("#C0392B"))
+        dataSetColors.add(rgb("#884EA0"))
+        dataSetColors.add(rgb("#2471A3"))
+        dataSetColors.add(rgb("#1ABC9C"))
+        dataSetColors.add(rgb("#27AE60"))
+        dataSetColors.add(rgb("#F1C40F"))
+        dataSetColors.add(rgb("#F39C12"))
+        dataSetColors.add(rgb("#E67E22"))
+        dataSetColors.add(rgb("#D35400"))
+        dataSetColors.add(rgb("#2E4053"))
+        dataSetColors.add(rgb("#145A32"))
+        dataSetColors.add(rgb("#0B5345"))
 
         barChartComponentInit()
+
         stackBarChartComponentInit()
 
         pieChartComponentInit()
@@ -56,7 +95,8 @@ class MainActivity : AppCompatActivity() {
         val linkedHashMap = LinkedHashMap<String, FloatArray>()
         linkedHashMap[yAxisValName + 1] = yAxisVal //String, float[]
 
-        val singleBarChart = BarChartWrapper().barChart(barChart, xAxisVal, linkedHashMap, "")
+        val singleBarChart =
+            BarChartWrapper().barChart(barChart, xAxisVal, linkedHashMap, dataSetColors, "")
         singleBarChart.invalidate()
     }
 
@@ -68,7 +108,14 @@ class MainActivity : AppCompatActivity() {
         linkedHashMap[yAxisValName + 2] = yAxisVal2 //String, float[]
         linkedHashMap[yAxisValName + 3] = yAxisVal3 //String, float[]
 
-        val multiBarChart = BarChartWrapper().multiBarChart(multiBarChart, xAxisVal, linkedHashMap, "")
+        val multiBarChart =
+            BarChartWrapper().multiBarChart(
+                multiBarChart,
+                xAxisVal,
+                linkedHashMap,
+                dataSetColors,
+                ""
+            )
         multiBarChart.invalidate()
     }
 
@@ -97,7 +144,15 @@ class MainActivity : AppCompatActivity() {
         hashMap3[yAxisValName + 3] = yAxisValSize1 //String, float[]
         linkedHashMap["Category3"] = hashMap3
 
-        val barStackChart=BarChartWrapper().barStackChart(barChartView1, xAxisVal, linkedHashMap, "")
+
+        val barStackChart =
+            BarChartWrapper().barStackChart(
+                barChartView1,
+                xAxisVal,
+                linkedHashMap,
+                dataSetColors,
+                ""
+            )
         barStackChart.invalidate()
 
     }
@@ -111,8 +166,10 @@ class MainActivity : AppCompatActivity() {
 
         val outSideSlice = true //Y axis value highlighted in OutSideSlice
 
-        val pieChart = PieWrapper().pieChart(pieChart, xAxisVal, yAxisVal, "Month",
-            yAxisValFormat, "", outSideSlice)
+        val pieChart = PieWrapper().pieChart(
+            pieChart, xAxisVal, yAxisVal, dataSetColors, "Month",
+            yAxisValFormat, "", outSideSlice
+        )
         pieChart!!.invalidate()
     }
 
@@ -127,7 +184,9 @@ class MainActivity : AppCompatActivity() {
 
         linkedHashMap[yAxisSeriesName + 3] = yAxisVal3 //String, float[]
 
-        val mulLineChart = mulLine.multiLineChart(mulLineChart, xAxisVal, linkedHashMap, "")
+        val mulLineChart =
+            mulLine.multiLineChart(mulLineChart, xAxisVal, linkedHashMap, dataSetColors, "")
+
         mulLineChart!!.invalidate()
     }
 }

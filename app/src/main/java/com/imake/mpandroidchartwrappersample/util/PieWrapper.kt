@@ -1,6 +1,5 @@
 package com.imake.mpandroidchartwrappersample.util
 
-import android.content.Context
 import android.graphics.Color
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
@@ -15,17 +14,21 @@ import java.util.*
 
 class PieWrapper {
 
-    private val colors = ArrayList<Int>()
+    private var colors = ArrayList<Int>()
 
     fun pieChart(
         chart: PieChart,
         xAxisVal: Array<String>,
         yAxisVal: FloatArray,
+        colors: ArrayList<Int>,
         yAxisName: String,
         yAxisValFormat: String?,
         graphTitle: String?,
         outSideSlice: Boolean?
     ): PieChart? {
+        //Add Colors for Data sets
+        this.colors=colors
+
         chart.setUsePercentValues(true)
         chart.description.isEnabled = false
         chart.centerText = graphTitle;
@@ -84,8 +87,6 @@ class PieWrapper {
         dataSet.sliceSpace = 3f
         dataSet.selectionShift = 5f
 
-        // add a lot of colors
-        addColorTemplate()
 
         dataSet.colors = colors
         if (outSideSlice != null && outSideSlice) {
@@ -115,14 +116,5 @@ class PieWrapper {
         data.setValueTextSize(11f)
         data.setValueTextColor(Color.BLACK)
         return data
-    }
-
-    private fun addColorTemplate() {
-        if (colors.size == 0) {
-            for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
-            for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-        }
     }
 }
