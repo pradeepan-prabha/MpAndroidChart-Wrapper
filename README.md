@@ -26,7 +26,7 @@ Then, add the library to your module `build.gradle`
 dependencies {
 
         implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-        implementation ''
+        implementation 'com.github.pradeepan-prabha:MpAndroidChart-Wrapper:v0.0.3'
 }
 ```
 
